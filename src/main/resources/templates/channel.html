@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>SoSpri-the-page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/pr_bbw.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+			$("#includedHeader").load("fragments/header.html");
+			$("#includedFooter").load("fragments/footer.html");
+		});
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+			console.log("DOM fully loaded and parsed");
+			var element = document.getElementById("messages-panel");
+			element.scrollTop = element.scrollHeight;
+		});
+	</script>
+</head>
+
+<body>
+	<div id="includedHeader"></div>
+
+	<div class="container" style="margin-top: 30px">
+		<div class="row">
+			<div class="col-sm-4">
+				<h2>Navigation</h2>
+				<h5>Channels:</h5>
+				<ul class="nav nav-pills flex-column">
+					<li class="nav-item"><a class="nav-link active" href="#">Webframeworks</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Technotrends</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Fun</a></li>
+					<li class="nav-item"><a class="nav-link disabled" href="#">Top Secret</a></li>
+				</ul>
+				<hr class="d-sm-none">
+			</div>
+			<div class="col-sm-8">
+				<h2>Messages</h2>
+				<div class="panel panel-primary pr_border_solid">
+					<div id="messages-panel" class="panel-body">
+						<ul class="media-list" th:each="message : ${messages}">
+							<li class="media">
+								<a class="pull-left" href="#"> <img src="img/small-avatar.png" alt="" /></a>
+								<div>
+									<h5><a href="#" th:text="${message.author}"></a></h5>
+									<span class="pr_text_green" th:text="${message.origin}"></span>
+									<p th:text="${message.content}"></p>
+								</div>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+
+				<div style="margin-top: 10px; margin-bottom: 30px">
+					<form action="#" th:action="@{/add-message}" th:object="${message}" method="post">
+						<div class="input-group">
+							<input id="input-content" type="text" class="form-control input-sm" placeholder="Type your message here..." th:field="*{content}" />
+							<span class="input-group-btn">
+								<input id="btn-send" type="submit" class="btn btn-warning" value="Send" />
+							</span>
+						</div>
+						<p th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color:red"></p>
+						<p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" style="color:red"></p>
+						<p th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}" style="color:red"></p>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="includedFooter"></div>
+</body>
+
+</html>

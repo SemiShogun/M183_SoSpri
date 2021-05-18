@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>SoSpri-the-page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/pr_bbw.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script>
+    $(function() {
+      $("#includedHeader").load("fragments/header.html");
+      $("#includedFooter").load("fragments/footer.html");
+    });
+  </script>
+</head>
+
+<body>
+  <div id="includedHeader"></div>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div>
+            <h4 style="margin-top:30px">Members</h4>
+            <div class="row">
+              <div class=" col-lg-8 col-lg-offset-2">
+                <form id="members-form" method="post" action="" role="form" th:switch="${members}">
+                  <p th:case="null">No members available</p>
+                  <table class="table table-striped" th:case="*">
+                    <caption>Liste of members</caption>
+                    <thead>
+                      <tr>
+                        <th>Lastname</th>
+                        <th>Firstname</th>
+                        <th>Rolle</th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="member : ${members}">
+                        <td th:text="${member.prename}"></td>
+                        <td th:text="${member.lastname}"></td>
+                        <td th:text="${member.authority}"></td>
+                        <td><a class="btn btn-success" th:href="@{/edit-member?id={id}(id=${member.id})}">Edit</a></td>
+                        <td><a class="btn btn-warning" th:href="@{/delete-member?id={id}(id=${member.id})}">Delete</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="includedFooter"></div>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SoSpri-the-page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/pr_bbw.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script>
+    $(function() {
+      $("#includedHeader").load("fragments/header.html");
+      $("#includedFooter").load("fragments/footer.html");
+    });
+  </script>
+</head>
+
+<body>
+  <div id="includedHeader"></div>
+
+  <section>
+    <div class="container" style="margin-top:30px">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="widget">
+            <h4>Get in touch with us</h4>
+            <ul>
+              <li><label><strong>Phone : </strong></label>
+                <p>
+                  +042 52 267 83 00
+                </p>
+              </li>
+              <li><label><strong>Email : </strong></label>
+                <p>
+                  peter.rutschmann@bbw.ch
+                </p>
+              </li>
+              <li><label><strong>Adress : </strong></label>
+                <p>Berufsbildungsschule Winterthur
+                  <br>Abteilung Informatik
+                  <br>Pionierstrasse 28
+                  <br>8400 Winterthur</p>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <hr>
+            <h4 style="margin-top:30px">Social network</h4>
+            <a href="#"> <img class="pr_center" src="img/facebook.svg" height="32" alt="" /></a>
+            <a href="#"> <img class="pr_center" src="img/instagram.svg" height="32" alt="" /></a>
+            <a href="#"> <img class="pr_center" src="img/twitter.svg" height="32" alt="" /></a>
+            <a href="#"> <img class="pr_center" src="img/whatsapp.svg" height="32" alt="" /></a>
+            <p></p>
+            <p>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+          </div>
+          <div>
+            <hr>
+            <h4 style="margin-top:30">Map</h4>
+            <iframe
+              src="
+          https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d673.8944018651368!2d8.71942192924642!3d47.49814140476792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479a997124b3a3c9%3A0x5987fd36c95768e7!2sBerufsbildungsschule%20Winterthur%3A%20Abteilung%20Informatik!5e0!3m2!1sde!2sch!4v1584216327359!5m2!1sde!2sch"
+              width="600" height="450" frameborder="0" style="border:0; margin-top:20" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          </div>
+          <div>
+            <hr>
+            <h4 style="margin-top:30px">Contact us</h4>
+            <div class="row">
+              <div class=" col-lg-8 col-lg-offset-2">
+                <form id="contact-form" method="post" action="" role="form">
+                  <div class="messages"></div>
+                  <div class="controls">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_name">Firstname *</label>
+                          <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_lastname">Lastname *</label>
+                          <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required" data-error="Lastname is required.">
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_email">Email *</label>
+                          <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required" data-error="Valid email is required.">
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_phone">Phone</label>
+                          <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Please enter your phone">
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="form_message">Message *</label>
+                          <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required data-error="Please,leave us a message."></textarea>
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <input type="submit" class="btn btn-success btn-send" value="Send message">
+                        <p></p>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="includedFooter"></div>
+</body>
+
+</html>
