@@ -32,7 +32,7 @@ public class Member {
 	private String lastname;
 
 	@NotEmpty(message = "Password can't be empty")
-	@Size(min=4, max=20, message="The length of the password has to be between 4 to 20 letters long.")
+//	@Size(min=4, max=20, message="The length of the password has to be between 4 to 20 letters long.")
 	private String password;
 	private String username;
 	

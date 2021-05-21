@@ -71,14 +71,16 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                      
-                        <!-- Fehlermeldungen... 
-                        <b th:if="${#fields.hasErrors('prename')}" th:errors="*{prename}">Prename Error</b> 
-                        ---  hier eränzen
-                        
-                        <b th:text="*{message}"></b>
-                         -->
-                         
+
+                        <b th:if="${#fields.hasErrors('prename')}" th:errors="*{prename}">Prename Error</b>
+                        <b th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Lastname Error</b>
+
+                        <div th:if="${#fields.hasErrors('password') || #fields.hasErrors('confirmation')}">
+                          <b>The password must be at least 8 to 20 characters long.</b>
+                          <b>It must also contain a number and a capital letter without any whitespaces.</b>
+                        </div>
+
+                        <b th:text="${message}"></b>
                       </div>
                     </div> 
                   </div>
