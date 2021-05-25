@@ -3,3 +3,11 @@
 *.class
 target
 target/*
+/target/classes/ch/bbw/pr/sospri/ChannelsController.class
+/target/classes/ch/bbw/pr/sospri/config/WebSecurityConfig.class
+/target/classes/ch/bbw/pr/sospri/member/MemberService.class
+/target/classes/ch/bbw/pr/sospri/MembersController.class
+/target/classes/ch/bbw/pr/sospri/RegisterController.class
+/target/classes/static/403.html
+/target/classes/static/404.html
+/target/classes/static/fragments/header.html
