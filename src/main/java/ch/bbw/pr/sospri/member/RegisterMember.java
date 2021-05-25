@@ -7,8 +7,8 @@ import javax.validation.constraints.Size;
 /**
  * To regist a new Member
  *
- * @author peter.rutschmann
- * @version 27.04.2020
+ * @author Jamie Lam
+ * @version 25.05.2021
  */
 public class RegisterMember {
 

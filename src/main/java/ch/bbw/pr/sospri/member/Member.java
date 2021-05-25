@@ -12,8 +12,8 @@ import javax.validation.constraints.Size;
 /**
  * A member
  * 
- * @author Peter Rutschmann
- * @version 09.04.2020
+ * @author Jamie Lam
+ * @version 25.05.2021
  */
 @Entity
 @Table(name = "member")

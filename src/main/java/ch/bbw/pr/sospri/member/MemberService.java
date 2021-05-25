@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * MemberService
  * 
- * @author Peter Rutschmann
- * @version 09.04.2020
+ * @author Jamie Lam
+ * @version 25.05.2021
  * 
  * https://www.baeldung.com/transaction-configuration-with-jpa-and-spring
  * https://reflectoring.io/spring-security-password-handli

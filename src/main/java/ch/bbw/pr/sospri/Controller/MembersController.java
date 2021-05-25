@@ -11,8 +11,8 @@ import ch.bbw.pr.sospri.member.Member;
 import ch.bbw.pr.sospri.member.MemberService;
 /**
  * UsersController
- * @author Peter Rutschmann
- * @version 28.04.2020
+ * @author Jamie Lam
+ * @version 25.05.2021
  */
 @Controller
 public class MembersController {

@@ -19,8 +19,8 @@ import javax.validation.Valid;
 /**
  * RegisterController
  *
- * @author Peter Rutschmann
- * @version 26.03.2020
+ * @author Jamie Lam
+ * @version 25.05.2021
  */
 @Controller
 public class RegisterController {

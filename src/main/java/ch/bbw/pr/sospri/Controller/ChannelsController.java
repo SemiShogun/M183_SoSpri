@@ -18,8 +18,8 @@ import ch.bbw.pr.sospri.message.Message;
 import ch.bbw.pr.sospri.message.MessageService;
 /**
  * ChannelsController
- * @author Peter Rutschmann
- * @version 26.03.2020
+ * @author Jamie Lam
+ * @version 25.05.2021
  */
 @Controller
 public class ChannelsController {

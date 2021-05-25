@@ -16,8 +16,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 /**
  * A chat message
  * 
- * @author Peter Rutschmann
- * @version 25.03.2020
+ * @author Jamie Lam
+ * @version 25.05.2021
  */
 @Entity
 @Table(name = "message")

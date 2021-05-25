@@ -4,8 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * MemberRepository
  * 
- * @author Peter Rutschmann
- * @version 26.03.2020
+ * @author Jamie Lam
+ * @version 25.05.2021
  */
                                                        //Klasse, id-Typ
 public interface MemberRepository extends CrudRepository<Member, Long>{

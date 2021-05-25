@@ -4,8 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * MessageRepository
  * 
- * @author Peter Rutschmann
- * @version 25.06.2020
+ * @author Jamie Lam
+ * @version 25.05.2020
  */
                                                         //Klasse, id-Typ
 public interface MessageRepository extends CrudRepository<Message, Long>{
