@@ -2,3 +2,5 @@
 50_02_SpringBootChatAppSoSpriV01.iml
 /.idea
 ./target
+*.class
+target
