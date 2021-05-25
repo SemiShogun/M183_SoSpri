@@ -1,4 +1,4 @@
-package ch.bbw.pr.sospri;
+package ch.bbw.pr.sospri.Controller;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package ch.bbw.pr.sospri;
+package ch.bbw.pr.sospri.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

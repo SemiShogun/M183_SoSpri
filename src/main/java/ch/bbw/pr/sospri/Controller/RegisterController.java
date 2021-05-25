@@ -1,4 +1,4 @@
-package ch.bbw.pr.sospri;
+package ch.bbw.pr.sospri.Controller;
 
 import ch.bbw.pr.sospri.member.Member;
 import org.springframework.beans.factory.annotation.Autowired;
