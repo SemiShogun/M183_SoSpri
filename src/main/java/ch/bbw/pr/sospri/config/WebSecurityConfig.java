@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,13 +19,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     MemberService memberservice;
-
-//    @Autowired
-//    public void globalSecurityConfiguration(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user").password("{noop}1234").roles("user").and()
-//                .withUser("admin").password("{noop}5678").roles("user", "admin");
-//    }
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
@@ -45,16 +39,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-                csrf().ignoringAntMatchers("/h2-console/**").disable()
+        http
+                .csrf().ignoringAntMatchers("/h2-console/**").disable()
                 .authorizeRequests()
                 .antMatchers("/css/*", "/fragments/*", "/img/*", "/errors/*").permitAll()
                 .antMatchers("/get-channel").hasAnyAuthority("admin","supervisor","member")
+                .antMatchers("/get-register").permitAll()
                 .antMatchers("/get-members").hasAuthority("admin")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().permitAll()
-                .and().exceptionHandling().accessDeniedPage("/errors/403.html");
+                .and().exceptionHandling().accessDeniedPage("/errors/403.html")
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).invalidSessionUrl("/login");
     }
 
 }
