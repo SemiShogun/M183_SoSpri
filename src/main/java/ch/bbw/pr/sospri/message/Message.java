@@ -36,7 +36,7 @@ public class Message {
 	private String author;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date origin ;
+	private Date origin;
 
 	public Long getId() {
 		return id;
