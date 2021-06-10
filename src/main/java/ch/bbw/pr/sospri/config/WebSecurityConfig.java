@@ -40,17 +40,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/h2-console/**").disable()
+                .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/css/*", "/fragments/*", "/img/*", "/errors/*").permitAll()
-                .antMatchers("/get-channel").hasAnyAuthority("admin","supervisor","member")
+                .antMatchers("/channel").hasAnyAuthority("admin","supervisor","member")
                 .antMatchers("/get-register").permitAll()
                 .antMatchers("/get-members").hasAuthority("admin")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().permitAll()
+                .and().httpBasic()
                 .and().exceptionHandling().accessDeniedPage("/errors/403.html")
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).invalidSessionUrl("/login");
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).invalidSessionUrl("/login")
+                .and().headers().frameOptions().disable();
     }
 
 }
