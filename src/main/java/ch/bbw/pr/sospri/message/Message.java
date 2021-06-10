@@ -38,6 +38,8 @@ public class Message {
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date origin;
 
+	private String channel;
+
 	public Long getId() {
 		return id;
 	}
@@ -68,6 +70,14 @@ public class Message {
 
 	public void setOrigin(Date origin) {
 		this.origin = origin;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 
 	@Override

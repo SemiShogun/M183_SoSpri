@@ -17,8 +17,16 @@ public class MessageService {
 		return repository.findAll();
 	}
 
+	public Iterable<Message> getChannelMessages(String channel) {
+		return repository.getChannelMessages(channel);
+	}
+
 	public void add(Message message) {
 		repository.save(message);
+	}
+
+	public void addChannelMessage(Message message) {
+		repository.addChannelMessage(message);
 	}
 
 	public void update(Long id, Message message) {

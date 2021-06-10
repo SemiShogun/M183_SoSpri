@@ -13,6 +13,15 @@
 		$(function() {
 			$("#includedHeader").load("fragments/header.html");
 			$("#includedFooter").load("fragments/footer.html");
+			const urlParams = new URLSearchParams(window.location.search);
+			const myParam = urlParams.get('channelName');
+			console.log(myParam)
+			var items = document.getElementById("channels").getElementsByTagName("li");
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].getAttribute('id') == myParam) {
+					document.querySelectorAll(`a[href='channel?channelName=${myParam}']`)[0].classList.add("active");
+				}
+			}
 		});
 
 		document.addEventListener("DOMContentLoaded", function(event) {
@@ -31,11 +40,11 @@
 			<div class="col-sm-4">
 				<h2>Navigation</h2>
 				<h5>Channels:</h5>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item"><a class="nav-link active" href="/channel/webframeworks">Webframeworks</a></li>
-					<li class="nav-item"><a class="nav-link" href="/channel/technotrends">Technotrends</a></li>
-					<li class="nav-item"><a class="nav-link" href="/channel/fun">Fun</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="/channel/secret">Top Secret</a></li>
+				<ul id="channels" class="nav nav-pills flex-column">
+					<li class="nav-item" id="webframeworks"><a class="nav-link" href="channel?channelName=webframeworks">Webframeworks</a></li>
+					<li class="nav-item" id="technotrends"><a class="nav-link" href="channel?channelName=technotrends">Technotrends</a></li>
+					<li class="nav-item" id="fun"><a class="nav-link" href="channel?channelName=fun">Fun</a></li>
+					<li class="nav-item" id="secret"><a class="nav-link" href="channel?channelName=secret">Top Secret</a></li>
 				</ul>
 				<hr class="d-sm-none">
 			</div>
@@ -53,12 +62,11 @@
 								</div>
 							</li>
 						</ul>
-
 					</div>
 				</div>
 
 				<div style="margin-top: 10px; margin-bottom: 30px">
-					<form action="#" th:action="@{/add-message}" th:object="${message}" method="post">
+					<form action="#" th:action="@{/add-message/{channelName}(channelName=${param.channelName})}" th:object="${message}" method="post">
 						<div class="input-group">
 							<input id="input-content" type="text" class="form-control input-sm" placeholder="Type your message here..." th:field="*{content}" />
 							<span class="input-group-btn">
