@@ -2,6 +2,7 @@ package ch.bbw.pr.sospri.Controller;
 
 import ch.bbw.pr.sospri.member.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,12 @@ import javax.validation.Valid;
 public class RegisterController {
     @Autowired
     MemberService memberservice;
+
+    private static final String PEPPER = "DingDongChingChong";
+
+    public static String getPepper() {
+        return PEPPER;
+    }
 
     @GetMapping("/get-register")
     public String getRequestRegistMembers(Model model) {
@@ -59,11 +66,14 @@ public class RegisterController {
             return "register";
         }
 
+        Pbkdf2PasswordEncoder encoder = new Pbkdf2PasswordEncoder(PEPPER, 185000, 256);
+        String encodedpw = encoder.encode(registerMember.getPassword());
+
         Member member = new Member();
         member.setAuthority("member");
         member.setPrename(registerMember.getPrename());
         member.setLastname(registerMember.getLastname());
-        member.setPassword(registerMember.getPassword());
+        member.setPassword(encodedpw);
         member.setUsername(member.getPrename() + "." + member.getLastname());
 
         memberservice.add(member);
