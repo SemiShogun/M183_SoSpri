@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.sql.Blob;
 
 /**
  * MessageRepository
@@ -26,4 +27,7 @@ public interface MessageRepository extends CrudRepository<Message, Long>{
     @Query(value = "INSERT INTO Message(id, author, channel, content, origin) VALUES :message", nativeQuery = true)
     @Transactional
     void addChannelMessage(@Param("message") Message message);
+
+    @Query(value = "SELECT m.photo FROM Message m where m.id=:id")
+    byte[] getPhotoById(@Param("id") int id);
 }

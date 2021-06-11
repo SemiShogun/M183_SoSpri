@@ -2,6 +2,10 @@ package ch.bbw.pr.sospri.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Blob;
+import java.util.Optional;
+
 /**
  * MessageService
  * 
@@ -19,6 +23,14 @@ public class MessageService {
 
 	public Iterable<Message> getChannelMessages(String channel) {
 		return repository.getChannelMessages(channel);
+	}
+
+	public byte[] getPhotoById(int id) {
+		return repository.getPhotoById(id);
+	}
+
+	public Message findById(Long id) {
+		return repository.findById(id).get();
 	}
 
 	public void add(Message message) {

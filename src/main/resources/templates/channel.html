@@ -59,6 +59,11 @@
 									<h5><a href="#" th:text="${message.author}"></a></h5>
 									<span class="pr_text_green" th:text="${message.origin}"></span>
 									<p th:text="${message.content}"></p>
+									<p th:text="${message.photo}"></p>
+									<div th:if="${message.photo != null}">
+										<p th:text="${message.id}"></p>
+										<img th:src="@{'getPhoto/' + ${message.id}}"/>
+									</div>
 								</div>
 							</li>
 						</ul>
@@ -66,9 +71,10 @@
 				</div>
 
 				<div style="margin-top: 10px; margin-bottom: 30px">
-					<form action="#" th:action="@{/add-message/{channelName}(channelName=${param.channelName})}" th:object="${message}" method="post">
+					<form action="#" th:action="@{/add-message/{channelName}(channelName=${param.channelName})}" th:object="${message}" method="post" enctype="multipart/form-data">
 						<div class="input-group">
 							<input id="input-content" type="text" class="form-control input-sm" placeholder="Type your message here..." th:field="*{content}" />
+							<input name="image" type="file" class="form-control" accept="image/jpeg"/>
 							<span class="input-group-btn">
 								<input id="btn-send" type="submit" class="btn btn-warning" value="Send" />
 							</span>

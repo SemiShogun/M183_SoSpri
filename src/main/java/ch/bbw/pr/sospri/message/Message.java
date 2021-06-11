@@ -1,13 +1,9 @@
 package ch.bbw.pr.sospri.message;
 
+import java.util.Arrays;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -39,6 +35,9 @@ public class Message {
 	private Date origin;
 
 	private String channel;
+
+	@Lob
+	private byte[] photo;
 
 	public Long getId() {
 		return id;
@@ -80,8 +79,23 @@ public class Message {
 		this.channel = channel;
 	}
 
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", content=" + content + ", author=" + author + ", origin=" + origin + "]";
+		return "Message{" +
+				"id=" + id +
+				", content='" + content + '\'' +
+				", author='" + author + '\'' +
+				", origin=" + origin +
+				", channel='" + channel + '\'' +
+				", photo=" + Arrays.toString(photo) +
+				'}';
 	}
 }
