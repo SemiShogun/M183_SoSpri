@@ -59,11 +59,10 @@
 									<h5><a href="#" th:text="${message.author}"></a></h5>
 									<span class="pr_text_green" th:text="${message.origin}"></span>
 									<p th:text="${message.content}"></p>
-									<p th:text="${message.photo}"></p>
 									<div th:if="${message.photo != null}">
-										<p th:text="${message.id}"></p>
-										<img th:src="@{'getPhoto/' + ${message.id}}"/>
+										<img style="width: 400px" th:src="@{'getPhoto/' + ${message.id}}"/>
 									</div>
+
 								</div>
 							</li>
 						</ul>

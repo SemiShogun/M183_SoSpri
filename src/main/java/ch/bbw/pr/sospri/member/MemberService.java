@@ -1,6 +1,8 @@
 package ch.bbw.pr.sospri.member;
 
 import ch.bbw.pr.sospri.mapper.UserDetailsMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class MemberService implements UserDetailsService {
+
+	Logger logger = LogManager.getLogger(MemberService.class);
+
 	@Autowired
 	private MemberRepository repository;
 	
@@ -47,7 +52,7 @@ public class MemberService implements UserDetailsService {
 				return member;
 			}
 		}
-		System.out.println("MemberService:getById(), id does not exist in repository: " + id);
+		logger.error("MemberService:getById(), id does not exist in repository: " + id);
 		return null;
 	}
 	
@@ -59,7 +64,7 @@ public class MemberService implements UserDetailsService {
 				return member;
 			}
 		}
-		System.out.println("MemberService:getByUserName(), username does not exist in repository: " + username);
+		logger.error("MemberService:getByUserName(), username does not exist in repository: " + username);
 		return null;
 	}
 

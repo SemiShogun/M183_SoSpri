@@ -3,19 +3,15 @@ package ch.bbw.pr.sospri.Controller;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.security.Principal;
-import java.sql.Blob;
-import java.util.Base64;
 import java.util.Date;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,18 +35,18 @@ public class ChannelsController {
 	@Autowired
 	MemberService memberservice;
 
+	private static final Logger logger = LogManager.getLogger(ChannelsController.class);
+
 	@GetMapping("/channel")
 	public String getRequestChannel(@RequestParam String channelName, Model model,
 									HttpServletResponse response) {
 		response.setContentType("image/jpeg");
-		System.out.println("getRequestChannel");
 		model.addAttribute("messages", messageservice.getChannelMessages(channelName));
 
-		System.out.println(messageservice.getChannelMessages(channelName).toString());
+		logger.warn("User opened channel " + messageservice.getChannelMessages(channelName).toString());
 
 		Message message = new Message();
 		message.setContent("");
-		System.out.println("message: " + message);
 		model.addAttribute("message", message);
 		return "channel";
 	}
@@ -68,13 +64,12 @@ public class ChannelsController {
 									 @ModelAttribute @Valid Message message, BindingResult bindingResult,
 									 @RequestParam("image") MultipartFile file, Principal principal) {
 		try {
-			System.out.println("postRequestChannel(): message: " + message.toString());
 			if(bindingResult.hasErrors()) {
-				System.out.println("postRequestChannel(): has Error(s): " + bindingResult.getErrorCount());
+				logger.error("postRequestChannel(): has Error(s): " + bindingResult.getErrorCount());
 				bindingResult
 						.getFieldErrors()
 						.stream()
-						.forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
+						.forEach(f -> logger.error(f.getField() + ": " + f.getDefaultMessage()));
 				model.addAttribute("messages", messageservice.getAll());
 				return "redirect:/channel?channelName=" + channel;
 			}
@@ -83,7 +78,7 @@ public class ChannelsController {
 			String name = principal.getName();
 			Member tmpMember = memberservice.getByUserName(name.replaceAll(" ", ".").toLowerCase());
 
-			System.out.println(file.getBytes());
+			logger.warn("New message " + message);
 
 			byte[] image = file.getBytes();
 
@@ -92,12 +87,10 @@ public class ChannelsController {
 			message.setOrigin(new Date());
 			message.setPhoto(message.getPhoto());
 			message.setPhoto(image);
-			System.out.println("message: " + message);
 			messageservice.add(message);
-			System.out.println("added message: " + message);
 
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error("Exception detected: " + e);
 		}
 		return "redirect:/channel?channelName=" + channel;
 

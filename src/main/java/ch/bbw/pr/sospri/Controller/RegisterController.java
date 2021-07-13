@@ -36,16 +36,12 @@ public class RegisterController {
 
     @GetMapping("/get-register")
     public String getRequestRegistMembers(Model model) {
-        System.out.println("getRequestRegistMembers");
         model.addAttribute("registerMember", new RegisterMember());
         return "register";
     }
 
     @PostMapping("/get-register")
     public String postRequestRegistMembers(@Valid RegisterMember registerMember, BindingResult bindingResult, Model model) {
-        System.out.println("postRequestRegistMembers: registerMember");
-        System.out.println(registerMember);
-
         if (bindingResult.hasErrors()) {
 //			model.addAttribute("registerMember", new RegisterMember());
             return "register";
@@ -59,7 +55,6 @@ public class RegisterController {
 
         if (memberservice.getByUserName(registerMember.getPrename().toLowerCase() + "." +
                 registerMember.getLastname().toLowerCase()) != null) {
-            System.out.println("User already exists. Choose another first- or lastname.");
             model.addAttribute("message", "Username " + registerMember.getPrename().toLowerCase() + "." +
                     registerMember.getLastname().toLowerCase() + " already exists");
 
