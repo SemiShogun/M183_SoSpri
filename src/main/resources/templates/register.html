@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/pr_bbw.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     $(function() {
       $("#includedHeader").load("fragments/header.html");
@@ -82,7 +83,10 @@
 
                         <b th:text="${message}"></b>
                       </div>
-                    </div> 
+                    </div>
+                    <div class="g-recaptcha"
+                         data-sitekey="6LdK-JUbAAAAAAO4KhffzJke5dQmZdBod6R43H6-">
+                    </div>
                   </div>
                 </form>
                 <div id="message">
