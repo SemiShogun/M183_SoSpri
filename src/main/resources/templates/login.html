@@ -5,10 +5,12 @@
     <title>SoSpri-the-page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="906852017523-r1klbrtbngplr36dv5ent0sm9i3709rb.apps.googleusercontent.com">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/pr_bbw.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script>
         $(function() {
             $("#includedHeader").load("fragments/header.html");
@@ -24,12 +26,17 @@
         <div class="row">
             <div class="col-sm-12">
                 <div>
-                    <h4 style="margin-top: 30px">Register</h4>
+                    <h4 style="margin-top: 30px">Choose your login method</h4>
+                    <button type="button" class="btn btn-primary">
+                        <p th:each="url : ${urls}" style="margin: 0;">
+                            <a th:text="${url.key}" th:href="${url.value}" style="color: #ffffff;">Client</a>
+                        </p>
+                    </button>
+                    <h5 style="margin-top: 20px;">Default</h5>
                     <div class="row">
                         <div class=" col-lg-8 col-lg-offset-2">
                             <form name="f" th:action="@{/login}" method="post">
                                 <fieldset>
-                                    <legend>Please Login</legend>
                                     <div th:if="${param.error}" class="alert alert-error">
                                         Invalid username and password.
                                     </div>

@@ -59,10 +59,7 @@
 									<h5><a href="#" th:text="${message.author}"></a></h5>
 									<span class="pr_text_green" th:text="${message.origin}"></span>
 									<p th:text="${message.content}"></p>
-									<div th:if="${message.photo != null}">
-										<img style="width: 400px" th:src="@{'getPhoto/' + ${message.id}}"/>
-									</div>
-
+									<img style="width: 400px" th:src="${message.content} ? ${'getPhoto/' + message.id}  : 'picture does not exist!'" alt=""/>
 								</div>
 							</li>
 						</ul>

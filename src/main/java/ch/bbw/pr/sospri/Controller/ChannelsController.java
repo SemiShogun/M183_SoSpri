@@ -12,6 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ChannelsController {
 	@Autowired
 	MessageService messageservice;
+
 	@Autowired
 	MemberService memberservice;
 
@@ -62,7 +65,7 @@ public class ChannelsController {
 	@PostMapping("/add-message/{channelName}")
 	public String postRequestChannel(@PathVariable(value="channelName") String channel, Model model,
 									 @ModelAttribute @Valid Message message, BindingResult bindingResult,
-									 @RequestParam("image") MultipartFile file, Principal principal) {
+									 @RequestParam("image") MultipartFile file, Principal principal, @AuthenticationPrincipal OAuth2User oAuth2User) {
 		try {
 			if(bindingResult.hasErrors()) {
 				logger.error("postRequestChannel(): has Error(s): " + bindingResult.getErrorCount());
@@ -73,21 +76,31 @@ public class ChannelsController {
 				model.addAttribute("messages", messageservice.getAll());
 				return "redirect:/channel?channelName=" + channel;
 			}
-			// Hack solange es kein authenticated member hat
 
-			String name = principal.getName();
-			Member tmpMember = memberservice.getByUserName(name.replaceAll(" ", ".").toLowerCase());
+			try {
+				String name = oAuth2User.getAttribute("name").toString();
+				byte[] image = file.getBytes();
 
-			logger.warn("New message " + message);
+				message.setOrigin(new Date());
+				message.setChannel(channel);
+				message.setAuthor(name);
+				message.setPhoto(image);
+				messageservice.add(message);
+			} catch (Exception e) {
+				String name = principal.getName();
+				Member tmpMember = memberservice.getByUserName(name.replaceAll(" ", ".").toLowerCase());
 
-			byte[] image = file.getBytes();
+				logger.warn("New message " + message);
 
-			message.setAuthor(tmpMember.getPrename() + " " + tmpMember.getLastname());
-			message.setChannel(channel);
-			message.setOrigin(new Date());
-			message.setPhoto(message.getPhoto());
-			message.setPhoto(image);
-			messageservice.add(message);
+				byte[] image = file.getBytes();
+
+				message.setAuthor(tmpMember.getPrename() + " " + tmpMember.getLastname());
+				message.setChannel(channel);
+				message.setOrigin(new Date());
+				message.setPhoto(message.getPhoto());
+				message.setPhoto(image);
+				messageservice.add(message);
+			}
 
 		} catch (Exception e) {
 			logger.error("Exception detected: " + e);
