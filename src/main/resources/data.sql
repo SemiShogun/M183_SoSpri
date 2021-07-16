@@ -7,8 +7,8 @@ INSERT INTO message (id, content, author, origin, channel, photo) VALUES
 
 /* encrypted password for id 1..4 is 1234* */
 DELETE FROM member;
-INSERT INTO member (id, prename, lastname, password, username, authority) VALUES
-(1, 'Albert', 'Einstein', '9f58d4ed84d1a51da3f67a59af01c3af15f0ef88430a39d52bc913110989878283263fa8d8e0b229', 'albert.einstein', 'admin'),
-(2, 'Mac',  'Afee', '9f58d4ed84d1a51da3f67a59af01c3af15f0ef88430a39d52bc913110989878283263fa8d8e0b229', 'mac.afee', 'member'),
-(3, 'Tony',  'Stark', '9f58d4ed84d1a51da3f67a59af01c3af15f0ef88430a39d52bc913110989878283263fa8d8e0b229', 'toni.stark', 'supervisor'),
-(4, 'Wilhelm',  'Tell', '9f58d4ed84d1a51da3f67a59af01c3af15f0ef88430a39d52bc913110989878283263fa8d8e0b229', 'wilhelm.tell', 'member');
+INSERT INTO member (id, prename, lastname, password, username, authority, email, tfa, secret) VALUES
+(1, 'Albert', 'Einstein', '9f58d4ed84d1a51da3f67a59af01c3af15f0ef88430a39d52bc913110989878283263fa8d8e0b229', 'albert.einstein', 'admin', '', False, ''),
+(2, 'Mac',  'Afee', '9f58d4ed84d1a51da3f67a59af01c3af15f0ef88430a39d52bc913110989878283263fa8d8e0b229', 'mac.afee', 'member', '', False, ''),
+(3, 'Tony',  'Stark', '9f58d4ed84d1a51da3f67a59af01c3af15f0ef88430a39d52bc913110989878283263fa8d8e0b229', 'toni.stark', 'supervisor', '', False, ''),
+(4, 'Wilhelm',  'Tell', '9f58d4ed84d1a51da3f67a59af01c3af15f0ef88430a39d52bc913110989878283263fa8d8e0b229', 'wilhelm.tell', 'member', '', False, '');

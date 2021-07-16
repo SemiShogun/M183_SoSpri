@@ -17,6 +17,25 @@
             $("#includedFooter").load("fragments/footer.html");
         });
     </script>
+    <script th:inline="javascript">
+    function validate() {
+        if (document.f.username.value == "" && document.f.password.value == "") {
+            alert(/*[[#{message.username} + #{message.password}]]*/);
+            document.f.username.focus();
+            return false;
+        }
+        if (document.f.username.value == "") {
+            alert(/*[[#{message.username}]]*/);
+            document.f.username.focus();
+            return false;
+        }
+        if (document.f.password.value == "") {
+            alert(/*[[#{message.password}]]*/);
+            document.f.password.focus();
+            return false;
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -35,7 +54,7 @@
                     <h5 style="margin-top: 20px;">Default</h5>
                     <div class="row">
                         <div class=" col-lg-8 col-lg-offset-2">
-                            <form name="f" th:action="@{/login}" method="post">
+                            <form name="f" th:action="@{/login}" method="post" onsubmit="return validate()">
                                 <fieldset>
                                     <div th:if="${param.error}" class="alert alert-error">
                                         Invalid username and password.
@@ -51,6 +70,10 @@
                                         <label for="password">Password</label>
                                         <input type="password" id="password" name="password"/>
                                     </div>
+                                    <label>
+                                        Google Authenticator Verification Code
+                                    </label>
+                                    <input type='text' id="code" name="code"/>
                                     <button type="submit" class="btn btn-primary">Login</button>
                                 </fieldset>
                             </form>

@@ -26,6 +26,12 @@ public class RegisterMember {
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
     private String confirmation;
 
+    private String email;
+
+    private boolean tfa;
+    private String twoFactorAuth;
+    private String secret;
+
     public String getPrename() {
         return prename;
     }
@@ -56,6 +62,30 @@ public class RegisterMember {
 
     public void setConfirmation(String confirmation) {
         this.confirmation = confirmation;
+    }
+
+    public boolean isTfa() {
+        return tfa;
+    }
+
+    public void setTfa(boolean tfa) {
+        this.tfa = tfa;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
     @Override

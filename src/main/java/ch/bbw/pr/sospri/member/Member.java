@@ -1,5 +1,7 @@
 package ch.bbw.pr.sospri.member;
 
+import org.jboss.aerogear.security.otp.api.Base32;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +37,15 @@ public class Member {
 //	@Size(min=4, max=20, message="The length of the password has to be between 4 to 20 letters long.")
 	private String password;
 	private String username;
-	
 	private String authority;
+	private String email;
+	private boolean tfa;
+	private String secret;
+
+	public Member() {
+		super();
+		this.secret = Base32.random();
+	}
 
 	public Long getId() {
 		return id;
@@ -61,8 +70,15 @@ public class Member {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -87,10 +103,34 @@ public class Member {
 		this.authority = authority;
 	}
 
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", prename=" + prename + ", lastname=" + lastname + ", password=" + password
-				+ ", username=" + username + ", authority=" + authority + "]";
+	public boolean isTfa() {
+		return tfa;
 	}
 
+	public void setTfa(boolean tfa) {
+		this.tfa = tfa;
+	}
+
+	public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
+	@Override
+	public String toString() {
+		return "Member{" +
+				"id=" + id +
+				", prename='" + prename + '\'' +
+				", lastname='" + lastname + '\'' +
+				", password='" + password + '\'' +
+				", username='" + username + '\'' +
+				", authority='" + authority + '\'' +
+				", email='" + email + '\'' +
+				", tfa=" + tfa +
+				", secret='" + secret + '\'' +
+				'}';
+	}
 }

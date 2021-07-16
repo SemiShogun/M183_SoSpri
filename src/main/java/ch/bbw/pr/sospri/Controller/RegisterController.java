@@ -2,14 +2,19 @@ package ch.bbw.pr.sospri.Controller;
 
 import ch.bbw.pr.sospri.captcha.ReCaptchaValidationService;
 import ch.bbw.pr.sospri.member.Member;
+import de.taimos.totp.TOTP;
+import org.apache.commons.codec.binary.Base32;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +25,9 @@ import ch.bbw.pr.sospri.member.RegisterMember;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.awt.*;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
 
 /**
  * RegisterController
@@ -38,6 +46,11 @@ public class RegisterController {
     private static final Logger logger = LogManager.getLogger(MembersController.class);
 
     private static final String PEPPER = "DingDongChingChong";
+
+    public static String QR_PREFIX =
+            "https://chart.googleapis.com/chart?chs=200x200&chld=M%%7C0&cht=qr&chl=";
+
+    public static String APP_NAME = "SoSpri";
 
     public static String getPepper() {
         return PEPPER;
@@ -81,10 +94,18 @@ public class RegisterController {
             member.setLastname(registerMember.getLastname());
             member.setPassword(encodedpw);
             member.setUsername(member.getPrename() + "." + member.getLastname());
+            member.setEmail(registerMember.getEmail());
+            member.setTfa(registerMember.isTfa());
 
             memberservice.add(member);
 
+            if (member.isTfa()) {
+                model.addAttribute("qr", generateQRUrl(member));
+                return "qrcode";
+            }
+
             model.addAttribute("username", member.getUsername());
+            model.addAttribute("email", member.getEmail());
             return "registerconfirmed";
 
         } else {
@@ -92,5 +113,27 @@ public class RegisterController {
             logger.error("invalid captcha");
         }
         return "register";
+    }
+
+    @PostMapping("/confirmation")
+    public String confirmTfa(Model model, @RequestParam String code, @RequestParam String email, BindingResult bindingResult) {
+        if (getTOTPCode(memberservice.getByUserName(email).getSecret()) == getTOTPCode(memberservice.getByUserName(email).getSecret())) {
+            model.addAttribute("message", "2 Factor Authentication successfully confirmed");
+        }
+        return "/";
+    }
+
+    public static String getTOTPCode(String secretKey) {
+        Base32 base32 = new Base32();
+        byte[] bytes = base32.decode(secretKey);
+        String hexKey = Hex.encodeHexString(bytes);
+        return TOTP.getOTP(hexKey);
+    }
+
+    public String generateQRUrl(Member member) {
+        return QR_PREFIX + URLEncoder.encode(String.format(
+            "otpauth://totp/%s:%s?secret=%s&issuer=%s",
+                APP_NAME, member.getEmail(), member.getSecret(), APP_NAME, "UTF-8"
+        ));
     }
 }

@@ -57,12 +57,24 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="form_confirmation">Passwort
+                          <label for="form_confirmation">Password
                             confirmation *</label> <input id="form_confirmation" type="password" name="confirmation" class="form-control" placeholder="Please enter your password*" required="required" data-error="Valid confirmation is required."
                             th:field="*{confirmation}">
                           <div class="help-block with-errors"></div>
                         </div>
                       </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="email">Email *</label> <input id="email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required"
+                                                                         data-error="Valid email is required." th:field="*{email}">
+                          <div class="help-block with-errors"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      Use Two step verification <input type="checkbox" name="tfa" value="true"/>
                     </div>
                     <div class="row">
                       <div class="col-md-12">

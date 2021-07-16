@@ -1,6 +1,7 @@
 package ch.bbw.pr.sospri.member;
 
 import org.springframework.data.repository.CrudRepository;
+
 /**
  * MemberRepository
  * 
@@ -10,5 +11,7 @@ import org.springframework.data.repository.CrudRepository;
                                                        //Klasse, id-Typ
 public interface MemberRepository extends CrudRepository<Member, Long>{
 	//Da wir eine embedded database verwenden, braucht es keine Conecction Information.
+    Member findByEmail(String email);
+    Member findByUsername(String username);
 }
 

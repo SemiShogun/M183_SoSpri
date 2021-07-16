@@ -27,7 +27,17 @@
           <div>
             <h4 style="margin-top: 30px">Register confirmation</h4>
             <p>Your new username is <p th:text="${username}"></p></p>
-            <a href="/login"><button type="button" class="btn btn-success" >Login</button></a>
+            <div class="form-group">
+              <form id="register-form" method="post" action="" role="form" th:action="@{/confirmation}">
+                <input type="hidden" id="email" name="email" th:value="${email}"/>
+                <label>
+                  Google Authenticator Verification Code
+                </label>
+                <input type='text' id="code" name="code"/>
+                <input type="submit" class="btn btn-success btn-send" value="Register">
+              </form>
+            </div>
+            <a href="/oauth-login"><button type="button" class="btn btn-success" >Login</button></a>
           </div>
         </div>
         <div style="height: 350px"></div>
